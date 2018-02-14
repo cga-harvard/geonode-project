@@ -239,6 +239,7 @@ if USE_WORLDMAP:
             'geonode.contrib.worldmap.gazetteer',
             'geonode.contrib.worldmap.queue',
             'geonode.contrib.worldmap.wm_extra',
+            'geonode.contrib.createlayer',
         )
 
     #GEONODE_APPS = GEONODE_APPS + WORLDMAP_APPS
