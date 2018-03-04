@@ -21,9 +21,9 @@
 import os
 from celery import Celery
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{{project_name}}.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'camp.settings')
 
-app = Celery('{{project_name}}')
+app = Celery('camp')
 
 # Using a string here means the worker will not have to
 # pickle the object when using Windows.

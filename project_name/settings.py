@@ -22,7 +22,7 @@
 import os
 # Load more settings from a file called local_settings.py if it exists
 try:
-    from {{ project_name }}.local_settings import *
+    from camp.local_settings import *
 #    from geonode.local_settings import *
 except ImportError:
     from geonode.settings import *
@@ -30,9 +30,9 @@ except ImportError:
 #
 # General Django development settings
 #
-PROJECT_NAME = '{{ project_name }}'
+PROJECT_NAME = 'camp'
 
-SITENAME = '{{ project_name }}'
+SITENAME = 'camp'
 
 # Defines the directory that contains the settings file as the LOCAL_ROOT
 # It is used for relative settings elsewhere.
@@ -393,7 +393,7 @@ LOGGING = {
             "handlers": ["console"], "level": "INFO", },
         "pycsw": {
             "handlers": ["console"], "level": "INFO", },
-        "{{ project_name }}": {
+        "camp": {
             "handlers": ["console"], "level": "DEBUG", },
         },
     }

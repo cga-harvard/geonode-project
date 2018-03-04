@@ -1,4 +1,4 @@
-{{ project_name|title }}
+Camp
 ========================
 
 GeoNode template project. Generates a django project with GeoNode support.
@@ -90,11 +90,11 @@ To run the Ansible playbook use something like this::
 Configuration
 +++++++++++++
 
-Since this application uses geonode, base source of settings is ``geonode.settings`` module. It provides defaults for many items, which are used by geonode. This application has own settings module, ``{{project_name}}.settings``, which includes ``geonode.settings``. It customizes few elements:
+Since this application uses geonode, base source of settings is ``geonode.settings`` module. It provides defaults for many items, which are used by geonode. This application has own settings module, ``camp.settings``, which includes ``geonode.settings``. It customizes few elements:
  * static/media files locations - they will be collected and stored along with this application files by default. This is useful during development.
- * Adds ``{{project_name}}`` to installed applications, updates templates, staticfiles dirs, sets urlconf to ``{{project_name}}.urls``. 
+ * Adds ``camp`` to installed applications, updates templates, staticfiles dirs, sets urlconf to ``camp.urls``. 
 
-Whether you deploy development or production environment, you should create additional settings file. Convention is to make ``{{project_name}}.local_settings`` module. It is recommended to use ``{{project_name}}/local_settings.py``.. That file contains small subset of settings for edition. It should:
+Whether you deploy development or production environment, you should create additional settings file. Convention is to make ``camp.local_settings`` module. It is recommended to use ``camp/local_settings.py``.. That file contains small subset of settings for edition. It should:
  * not be versioned along with application (because changes you make for your private deployment may become public),
  * have customized at least``DATABASES``, ``SECRET_KEY`` and ``SITEURL``. 
 
@@ -107,5 +107,5 @@ To ilustrate whole concept of chanied settings:
     |                        |             |        configuration          |             |                                  |
     +========================|=============|===============================|=============|==================================+
     |                        | included by |                               | included by |                                  |
-    |   geonode.settings     |     ->      |  {{project_name}}.settings    |      ->     |  {{project_name}}.local_settings |
+    |   geonode.settings     |     ->      |  camp.settings    |      ->     |  camp.local_settings |
     +------------------------|-------------|-------------------------------|-------------|----------------------------------+

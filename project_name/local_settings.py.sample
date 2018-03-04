@@ -71,6 +71,7 @@ DATABASES = {
     # vector datastore for uploads
     'wmdata' : {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': '', # Empty ENGINE name disables
         'NAME': 'wmdata',
         'USER' : 'worldmap',
         'PASSWORD' : 'worldmap',
@@ -79,10 +80,6 @@ DATABASES = {
         'CONN_TOUT': 900,
     }
 }
-
-GEOSERVER_LOCATION = os.getenv(
-    'GEOSERVER_LOCATION', 'http://localhost:8080/geoserver/'
-)
 
 GEOSERVER_LOCATION = os.getenv(
     'GEOSERVER_LOCATION', 'http://localhost:8080/geoserver/'
@@ -213,8 +210,8 @@ PYCSW = {
 
 # If you want to enable Mosaics use the following configuration
 UPLOADER = {
-    'BACKEND': 'geonode.rest',
-    # 'BACKEND': 'geonode.importer',
+    # 'BACKEND': 'geonode.rest',
+    'BACKEND': 'geonode.importer',
     'OPTIONS': {
         'TIME_ENABLED': True,
         'MOSAIC_ENABLED': False,
@@ -233,23 +230,10 @@ UPLOADER = {
 
 ### WorldMap Settings ###
 USE_WORLDMAP = strtobool(os.getenv('USE_WORLDMAP', 'True'))
-# USE_WORLDMAP = False
+
 if USE_WORLDMAP:
-    # for now we remove CsrfViewMiddleware, which creates failures on x-csrftoken
-    # We need to fix this
-    MIDDLEWARE_CLASSES = (
-        'corsheaders.middleware.CorsMiddleware',
-        'django.middleware.common.CommonMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.locale.LocaleMiddleware',
-        'pagination.middleware.PaginationMiddleware',
-        # 'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.middleware.clickjacking.XFrameOptionsMiddleware',
-        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-        'oauth2_provider.middleware.OAuth2TokenMiddleware',
-    )
+    HYPERMAP_REGISTRY_URL = 'http://localhost:8001/'
+    SOLR_URL = 'http://localhost:8983/solr/hypermap/select/'
 
     INSTALLED_APPS += (
             'geonode.contrib.worldmap.gazetteer',
@@ -258,10 +242,7 @@ if USE_WORLDMAP:
             'geonode.contrib.createlayer',
         )
 
-    HYPERMAP_REGISTRY_URL = os.getenv('HYPERMAP_REGISTRY_URL', 'http://localhost:8001')
-    SOLR_URL = os.getenv('SOLR_URL', 'http://localhost:8983/solr/hypermap/select/')
-    MAPPROXY_URL = os.getenv('MAPPROXY_URL', 'http://localhost:8001')
-
+    #GEONODE_APPS = GEONODE_APPS + WORLDMAP_APPS
     # Other settings
     GEONODE_CLIENT_LOCATION = '/static/worldmap/worldmap_client/'
     USE_GAZETTEER = True
@@ -269,7 +250,3 @@ if USE_WORLDMAP:
     GAZETTEER_FULLTEXTSEARCH = False
     USE_CUSTOM_ORG_AUTHORIZATION = True
     CUSTOM_ORG_AUTH_TEXT = 'Are you affiliated with Harvard University?'
-    # Uncomment following line if debugging GeoExplorer static files
-    # GEONODE_CLIENT_LOCATION = 'http://localhost:9090/'
-
-ALLOWED_HOSTS = ['localhost', '192.168.33.17', ]

@@ -38,7 +38,7 @@ from paver.easy import (BuildFailure, call_task, cmdopts, info, needs, options,
 from setuptools.command import easy_install
 
 try:
-    from {{ project_name }}.settings import GEONODE_APPS
+    from camp.settings import GEONODE_APPS
 except BaseException:
     # probably trying to run install_win_deps.
     pass
@@ -827,8 +827,8 @@ def reset():
 
 
 def _reset():
-    sh("rm -rf {{ project_name }}/development.db")
-    sh("rm -rf {{ project_name }}/uploaded/*")
+    sh("rm -rf camp/development.db")
+    sh("rm -rf camp/uploaded/*")
     _install_data_dir()
 
 
