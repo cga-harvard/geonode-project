@@ -272,5 +272,7 @@ if USE_WORLDMAP:
     CUSTOM_ORG_AUTH_TEXT = 'Are you affiliated with Harvard University?'
     # Uncomment following line if debugging GeoExplorer static files
     # GEONODE_CLIENT_LOCATION = 'http://localhost:9090/'
+    GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')
+
 
 ALLOWED_HOSTS = ['localhost', 'amap.zju.edu.cn', ]
