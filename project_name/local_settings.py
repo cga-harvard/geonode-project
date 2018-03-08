@@ -237,6 +237,7 @@ USE_WORLDMAP = strtobool(os.getenv('USE_WORLDMAP', 'True'))
 if USE_WORLDMAP:
     # for now we remove CsrfViewMiddleware, which creates failures on x-csrftoken
     # We need to fix this
+    # TODO Niran: do not remove csrf considering of that choosing language in base.html need use csrfs    
     MIDDLEWARE_CLASSES = (
         'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
@@ -244,7 +245,7 @@ if USE_WORLDMAP:
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.locale.LocaleMiddleware',
         'pagination.middleware.PaginationMiddleware',
-        # 'django.middleware.csrf.CsrfViewMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
