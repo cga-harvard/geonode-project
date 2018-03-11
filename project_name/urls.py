@@ -25,7 +25,9 @@ from geonode.urls import urlpatterns
 
 urlpatterns += (
 ## include your urls here
-
+    url(r'^aboutus/$', 
+  	    TemplateView.as_view(template_name='aboutus.html'),
+        name='aboutus'),
 )
 
 urlpatterns = patterns('',
