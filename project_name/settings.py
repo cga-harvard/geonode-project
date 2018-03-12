@@ -32,6 +32,7 @@ except ImportError:
 #
 PROJECT_NAME = 'camp'
 
+SITE_NAME = 'camp'
 SITENAME = 'camp'
 
 # Defines the directory that contains the settings file as the LOCAL_ROOT
