@@ -43,12 +43,12 @@ EMAIL_ENABLE = True
 
 if EMAIL_ENABLE:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'localhost'
+    EMAIL_HOST = 'smtp.zju.edu.cn'
     EMAIL_PORT = 25
-    EMAIL_HOST_USER = ''
+    EMAIL_HOST_USER = 'camp2018@zju.edu.cn'
     EMAIL_HOST_PASSWORD = ''
-    EMAIL_USE_TLS = False
-    DEFAULT_FROM_EMAIL = '{{ project_name }} <no-reply@{{ project_name }}>'
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = 'camp2018@zju.edu.cn'
 
 
 POSTGIS_VERSION = (2, 0, 7)
