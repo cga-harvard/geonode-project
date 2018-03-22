@@ -14,9 +14,28 @@ ul, ol {
 	background-color: rgba(0, 0, 0, 0);
 }
 
+#wrap {
+  background: rgba(255, 255, 255, 0);
+  padding-bottom: 40px;
+  padding-top: 10px;
+  width: 100%;
+}
+
 footer {
 	text-align: center;
 	color: black;
+	background-color: #f5f5f5;
+  	font-family: Helvetica, Microsoft YaHei, Tohoma, Arial;
+  	font-size: 1.8rem;
+    margin-top: 30px;
+    background: #202020;
+    padding: 35px 0 0;
+    color: #959595;
+}
+
+footer a{
+	color: #ff8f31;
+	font-size: 1.5rem;
 }
 
 #indexTop {
@@ -61,7 +80,7 @@ footer {
 	padding-left: 2%;
 	padding-right: 4%;
 	padding-bottom: 2%;
-	font-size: 16px;
+	font-size: 1.6rem;
 }
 
 .thematicDiv {
@@ -79,11 +98,14 @@ footer {
 }
 
 .MapListTitle {
-	font-size: 300%;
+	font-size: 4.8rem;
 }
 
 .subMapListTitle {
-	font-size: 200%;
+	font-size: 2.4rem;
+	padding-bottom: 0.5%;
+	border-bottom: 3px solid #2c689c;
+	position: relative;
 }
 
 .picItem {
@@ -91,41 +113,80 @@ footer {
 	border-radius: 5px;
 }
 
+.videoItem {
+	width: 100%;
+	border-radius: 5px;
+}
+
 .imgTitle {
 	position: absolute;
-	text-align: center;
+	text-align: left;
 	width: 100%;
 	z-index: 1;
 	bottom: 0px;
 	color: #ffffff;
 	opacity: 0.8;
-	font-size: 180%;
-	background: linear-gradient(to top, rgba(0, 0, 0, 1.0), rgba(0, 0, 0, 0));
+	font-size: 1.6rem;
+	background: linear-gradient(to top, rgba(0, 0, 0, 1.0), rgba(0, 0, 0, 0.3));
 	border-radius: 5px;
 	margin: 0 0 0 0px;
+	line-height: 120%;
+	padding: 1%;
 }
 
+.videoList {
+	width: 100%;
+	padding: 1%;
+	overflow: auto;
+	white-space: nowrap;
+}
+
+.videoListTitle {
+	font-size: 2.4rem;
+	padding-bottom: 0.5%;
+	border-bottom: 3px solid #2c689c;
+	position: relative;
+}
+
+.videoTitle {
+	text-align: left;
+	z-index: 1;
+	width: 100%;
+	bottom: 0px;
+	color: #ffffff;
+	opacity: 0.8;
+	font-size: 1.76rem;
+	background: linear-gradient(to top, rgba(0, 0, 0, 1.0), rgba(0, 0, 0, 0.3));
+	border-radius: 5px;
+	margin: 0 0 0 0px;
+	line-height: 120%;
+	padding: 1%;
+}
+
+.col-md-3 {
+	margin-right: 4%;
+}
 /* 
  * Author: zbn
  */
 body {
 	background: url(../img/body.png);
 	background-repeat: repeat;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;} .datamaps-hoverover {display: none; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .headBackgroud {
 	background: url(../img/background.jpg);
-	height: 200px;
+	height: 330px;
 	width: 100%;
 	text-align: center;
-	margin-top: 120px;
+	/*margin-top: 120px;*/
 }
 
 .headTitle {
 	height: 100px;
 	width: 794px;
-	margin-top: 15px;
-}
+	margin-top: 120px;
 
 .topRightDiv .picItem {
 	cursor: pointer;
