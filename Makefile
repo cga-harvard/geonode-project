@@ -13,6 +13,7 @@ create_db:
 	#Creating Databases
 	sudo -u postgres psql -c "CREATE DATABASE $(WORLDMAP_DB) WITH OWNER $(OWNER);"
 	sudo -u postgres psql -d worldmap -c "CREATE EXTENSION postgis;"
+	sudo -u postgres psql -d worldmap -c "CREATE EXTENSION dblink;"
 	sudo -u postgres psql -c "CREATE DATABASE $(WMDATA) WITH OWNER $(OWNER);"
 	sudo -u postgres psql -d wmdata -c "CREATE EXTENSION postgis;"
 
