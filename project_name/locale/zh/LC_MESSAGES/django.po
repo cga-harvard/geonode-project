@@ -218,7 +218,7 @@ msgstr "登录"
 
 #: worldmap/templates/base.html:111
 msgid "Need Help?"
-msgstr "需要帮助？"
+msgstr "帮助"
 
 #: worldmap/templates/base.html:112
 msgid "Contact Us"
@@ -253,8 +253,10 @@ msgid "Type your search here ..."
 msgstr "在这输入关键词......"
 
 #: worldmap/templates/base.html:140
-msgid "<a href='/static/docs/WorldMap_Help_en.pdf'>Worldmap Help</a>"
-msgstr "<a href='/static/docs/WorldMap_Help_zh.pdf'>Worldmap帮助文档</a>"
+msgid "<a href='%(STATIC_URL)sdocs/Camp_Help_en.pdf'>Camp Help</a>"
+msgstr "<a href='%(STATIC_URL)sdocs/Camp_Help_zh.pdf'>帮助文档</a>"
+msgid "<a href='%(STATIC_URL)sdocs/Camp_Help_Simplified_zh.pdf'>Camp Help(Simplified Version)</a>"
+msgstr "<a href='%(STATIC_URL)sdocs/Camp_Help_Simplified_zh.pdf'>帮助文档简化版</a>"
 
 #: worldmap/templates/base.html:142
 msgid "GeoNode Help"
@@ -271,7 +273,7 @@ msgstr "创建图层"
 
 #: worldmap/templates/createlayer/layer_create.html:20
 msgid "Create an empty layer"
-msgstr "创建空的图层"
+msgstr "创建空图层"
 
 #: worldmap/templates/createlayer/layer_create.html:38
 msgid "Add Attribute"
@@ -779,7 +781,7 @@ msgstr "简介-"
 #: worldmap/templates/people/profile_detail.html:104
 #: worldmap/templates/people/profile_detail.html:108
 msgid "Not provided."
-msgstr "未提供。"
+msgstr "未提供信息。"
 
 #: worldmap/templates/people/profile_detail.html:82
 msgid "Position"
@@ -795,7 +797,7 @@ msgstr "位置"
 
 #: worldmap/templates/people/profile_detail.html:95
 msgid "Voice"
-msgstr "声音"
+msgstr "联系电话"
 
 #: worldmap/templates/people/profile_detail.html:103
 msgid "Fax"
@@ -807,16 +809,16 @@ msgstr "关键词"
 
 #: worldmap/templates/people/profile_detail.html:119
 msgid "Not provided"
-msgstr "未提供"
+msgstr "未提供信息"
 
 #: worldmap/templates/people/profile_detail.html:129
 msgid "Message User"
-msgstr "消息用户"
+msgstr "编辑短信"
 
 #: worldmap/templates/people/profile_detail.html:133
 #: worldmap/templates/people/profile_detail.html:167
 msgid "Edit profile"
-msgstr "编辑简介"
+msgstr "编辑个人简介"
 
 #: worldmap/templates/people/profile_detail.html:134
 msgid "Change password"
@@ -900,8 +902,8 @@ msgid "Center for Geographic Analysis at Zhejiang University"
 msgstr "哈佛大学地理分析中心"
 
 #: worldmap/templates/site_index.html:70
-msgid "Bigdata and Chinese AMAP Innovation Team of Zhejiang University"
-msgstr "浙江大学大数据与中国学术地图创新团队"
+msgid "Bigdata and AMAP Innovation Team of Zhejiang University"
+msgstr "浙江大学大数据与学术地图创新团队"
 
 #: worldmap/templates/site_index.html:70
 msgid "at"
@@ -1039,9 +1041,9 @@ msgstr ""
 
 #: worldmap/templates/worldmap_client/worldmap.html:248
 msgid ""
-"Maps rectified using this tool can be brought into WorldMap by following the instructions under Section 4.7 in <a href='%(STATIC_URL)sdocs/WorldMap_Help_en.pdf'>WorldMap Help</a>."
+"Maps rectified using this tool can be brought into WorldMap by following the instructions under Section 4.7 in <a href='%(STATIC_URL)sdocs/Camp_Help_en.pdf'>Camp Help</a>."
 msgstr ""
-"使用该工具进行校正的地图可以导入WorldMap中，具体流程请查看 <a href='%(STATIC_URL)sdocs/WorldMap_Help_zh.pdf'>WorldMap帮助文档中的4.7章节</a>。"
+"使用该工具进行校正的地图可以导入WorldMap中，具体流程请查看 <a href='%(STATIC_URL)sdocs/Camp_Help_en.pdf'>WorldMap帮助文档</a>中的4.7章节。"
 
 #: worldmap/templates/worldmap_client/worldmap.html:261
 #: worldmap/templates/worldmap_client/worldmap.html:277
@@ -1115,8 +1117,8 @@ msgid "Academic Map Publishing Platform"
 msgstr "学术地图发布平台"
 
 #: worldmap/templates/base.html:133
-msgid "Zhejiang University"
-msgstr "浙江大学"
+msgid "K&SS ZJU"
+msgstr "浙江大学社会科学研究院"
 msgid "CGA Harvard"
 msgstr "哈佛大学CGA"
 msgid "Copyright Notice"
@@ -1141,24 +1143,24 @@ msgid "A large amount of geographical information which is closely related to hu
 msgstr "灿烂辉煌的人类文明、浩如烟海的古今文献以及广袤无垠的陆地海洋，存在着海量的与人类活动息息相关的地理信息。就单个人物来说，包括人物的籍贯、行迹、社会关系的地理分布；就群体来说，包括一个群体的地理分布和迁徙轨迹；就非生命的物体来说，也有其存在、分布和变化的地理区域；就一个地方来说，则又包含了既往时间里人、事、物等地理信息的总汇。"
 
  #: worldmap/templates/aboutus.html:23
-msgid "The Academic Map Publishing Platform, established by Zhejiang University and Harvard University together, is not only an integrated database providing multi-functional query services, but also a display platform ready for users to present their research productions about geographic information and visualize analysis and select. The big data formed by the platform, will greatly contribute to future scientific research, government decision-making and social services."
-msgstr "由浙江大学与哈佛大学共建的学术地图发布平台愿为广大用户提供地理信息研究成果的发布、可视化分析及多功能查询服务，平台所形成的大数据，可以为未来科学研究、政府决策及社会服务提供重要的参考。 "
+msgid "The Academic Map Publishing Platform, established by the Academy of Social Sciences of Zhejiang University (executed by the big data and Academic map innovation team of Zhejiang University) and the Center for Geographic Analysis of Harvard University together, is not only an integrated database providing multi-functional query services, but also a display platform ready for users to present their research productions about geographic information and visualize analysis and select. The big data formed by the platform, will greatly contribute to future scientific research, government decision-making and social services."
+msgstr "由浙江大学社会科学研究院（具体由“浙江大学大数据+学术地图创新团队”执行）与哈佛大学地理分析中心共建的学术地图发布平台愿为广大用户提供地理信息研究成果的发布、可视化分析及多功能查询服务，平台所形成的大数据，可以为未来科学研究、政府决策及社会服务提供重要的参考。 "
 
 #: worldmap/templates/aboutus.html:23
-msgid "The big data and Chinese academic map innovation team of Zhejiang University"
-msgstr "浙江大学大数据与中国学术地图创新团队"
+msgid "The big data and Academic map innovation team of Zhejiang University"
+msgstr "浙江大学大数据+学术地图创新团队"
 
 #: worldmap/templates/aboutus.html:23
 msgid "The Center for Geographic Analysis of Harvard University"
 msgstr "哈佛大学地理分析中心"
 
 #: worldmap/templates/aboutus.html:23
-msgid "Dec 18, 2017"
-msgstr "2017年12月18日"
+msgid "Mar 13, 2018"
+msgstr "2018年3月13日"
 
 #: worldmap/templates/aboutus.html:23
-msgid "The copyright of the Academic Map Publishing Platform belongs to both the big data and Chinese academic map innovation team of Zhejiang University and the Center for Geographic Analysis of Harvard University. All copyrights of data and maps uploaded by users are held by their respective owners and the Platform."
-msgstr "“学术地图发布平台”的版权归“浙江大学大数据与中国学术地图创新团队”和“哈佛大学地理分析中心”共同所有。学者上传的地理信息数据与呈现的地图，版权归发布者和平台方共同所有。"
+msgid "The copyright of the Academic Map Publishing Platform belongs to both the big data and Academic map innovation team of Zhejiang University and the Center for Geographic Analysis of Harvard University. To download or print a map made with \"Tianditu\" as the basemap, it must be marked as \"Transferred from the Academic Map Publishing Platform (amap.zju.edu.cn), and the basemap is Tianditu (www.tianditu.com)\"."
+msgstr "“学术地图发布平台”的版权归“浙江大学大数据+学术地图创新团队”和“哈佛大学地理分析中心”共同所有。下载、打印以“天地图”为底图制作的底图，须注明“转自学术地图发布平台（amap.zju.edu.cn），底图为天地图（www.tianditu.com）”字样。"
 
 #: worldmap/templates/aboutus.html:23
 msgid "The data and information (including texts, pictures, audio and video files) must comply with national laws, regulations and academic norms. The legal liability caused by the content should be undertaken by the author, and this site has no joint liability."
@@ -1188,5 +1190,11 @@ msgstr "任何由于黑客攻击、计算机病毒侵入或发作、因政府管
 msgid "We regard that those who get access to this site or use the data of this site in any way have accepted the constraints of this disclaimer voluntarily."
 msgstr "凡以任何方式登陆本网站或直接、间接使用本网站资料者，视为自愿接受本网站声明的约束。"
 
-
+#: worldmap/templates/site_index.html:video tutorials
+msgid "Video Tutorials"
+msgstr "视频教程"
+msgid "Create Map by Existed Layer"
+msgstr "通过已有图层来创建地图"
+msgid "Create Map by Adding Layers"
+msgstr "通过添加地图来创建地图"
 
