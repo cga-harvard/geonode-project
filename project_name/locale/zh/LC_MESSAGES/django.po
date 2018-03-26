@@ -1163,32 +1163,36 @@ msgid "The copyright of the Academic Map Publishing Platform belongs to both the
 msgstr "“学术地图发布平台”的版权归“浙江大学大数据+学术地图创新团队”和“哈佛大学地理分析中心”共同所有。下载、打印以“天地图”为底图制作的底图，须注明“转自学术地图发布平台（amap.zju.edu.cn），底图为天地图（www.tianditu.com）”字样。"
 
 #: worldmap/templates/aboutus.html:23
-msgid "The data and information (including texts, pictures, audio and video files) must comply with national laws, regulations and academic norms. The legal liability caused by the content should be undertaken by the author, and this site has no joint liability."
+msgid "You agree that you are responsible for your own use of this Site and for any  data, information and other content (including texts, pictures, audio and video files) you upload, submit or distribute to or through the Site (collectively, “User Postings”). Your use of the Site and your User Postings must comply with local and national laws, regulations and academic norms, including copyright laws and laws regarding the transmission of technical data exported from your country of residence. You are solely responsible for any legal liability arising from your use of this Site and your User Postings. This Site, and the developers and administrators of the Academic Map Publishing Platform and their respective employees (collectively, the “Platform Providers”), shall have no legal liability arising from your use of the Site or your User Postings. In particular, to the fullest extent permitted by law, you agree that neither the Site nor the Platform Providers will be liable to you for any loss or damages, either actual or consequential, arising out of or relating to your or any other party’s use of or inability to use the Site, your or any other party’s User Postings, or your or any other party’s reliance on any information obtained from or through the Site, regardless of the nature of the claim."
 msgstr "发布者发布的数据和信息（包括文字、图片、影音文件），必须符合国家的法律法规和学术规范，若因发布的内容而引起的法律责任，由发布者自负。"
 
 #: worldmap/templates/aboutus.html:23
-msgid "The authors have to back up files by themselves. This site does not assume responsibility for data loss due to hacker attacks, viruses or any other reasons. "
+msgid "You are responsible to back up your own files and content. This Site does not assume responsibility for data loss due to hacker attacks, viruses or any other reasons."
 msgstr "发布者发布的数据和信息，务必自己备份，本网站不承担因黑客攻击或病毒侵入造成的发布者数据损失的责任。"
 
 #: worldmap/templates/aboutus.html:23
-msgid "This site and its employees are not required to take responsibility for any errors, inaccuracies or faults during information transmission or delivery in any way. "
+msgid "This Site and any information, content or services made available on or through the Site are provided “as is” and “as available” without warranty of any kind (express, implied or otherwise), including without limitation, any implied warranties of merchantability, fitness for a particular purpose and non-infringement. The Site and the Platform Providers do not warrant that the Site will operated in an uninterrupted or error-free manner, that the Site is free of viruses or other harmful components, or that the content and information provided will meet your needs or expectations.  The Site and the Platform Providers also make no warranty about the accuracy, completeness, timeliness, or quality of the Site, any User Postings or any other content, or that any particular content will continue to be made available."
 msgstr "本网站及其雇员一概毋须以任何方式就任何信息传递或传送的失误、不准确或错误对用户或任何其他人士负任何直接或间接的责任。"
 
 #: worldmap/templates/aboutus.html:23
-msgid "If the information provided on this site that is used by any person or distributed to any person in any jurisdiction violates the laws or regulations of that jurisdiction, or makes this website or its third-party agents subject to any regulatory requirement in that jurisdiction, such information should not be used or distributed to any person in such jurisdiction. Users have to make sure that their materials will not be subject to any local restrictions that restrict or prohibit users from using or distributing such kind of information provided on this site."
+msgid "The following list of items is strictly prohibited in your User Postings: content that defames, harasses or threatens others; content that infringes another’s intellectual property, including but not limited to, copyrights or trademarks; profane, obscene, indecent or unlawful content; advertising or any form of commercial solicitation; and viruses, Trojan horses, worms, time bombs, corrupted files, malware, spyware or any other similar software that may damage the operation of another’s computer or property."
 msgstr "本网站所提供的信息，若在任何司法管辖地区供任何人士使用或分发给任何人士时会违反该司法管辖地区的法律或条例的规定或会导致本网站或其第三方代理人受限于该司法管辖地区内的任何监管规定时，则该等信息不宜在该司法管辖地区供该等任何人士使用或分发给该等任何人士。用户须自行保证不会受限于任何限制或禁止用户使用或分发本网站所提供信息的当地的规定。"
 
 #: worldmap/templates/aboutus.html:23
-msgid "Because this site is open to any registered user to upload pictures or text, and the site cannot identify the copyright of the uploaded pictures or text. Please inform us immediately once you find any possible infringement of yours, and we will delete it promptly."
+msgid "You agree to make sure that your User Postings will not be subject to any local restrictions that restrict or prohibit other users of this Site from using or distributing such content or information. You agree not to scrape, or otherwise download in bulk, any Site content, User Postings or user information. "
 msgstr "本网站图片，文字之类版权申明，因为网站可以由注册用户自行上传图片或文字，本网站无法鉴别所上传图片或文字的知识版权，如果侵犯，请及时通知我们，本网站将在第一时间及时删除。"
 
 #: worldmap/templates/aboutus.html:23
-msgid "We accept no liability for any loss or damage arising by force majeure that influences the normal operation of this website, such as hacker attacks, computer virus invasion or attack, the temporary closure caused by government regulation and so on. If other websites linked to this site cause the disclosure of personal information and relevant legal disputes or consequences, this site needn't undertake responsibility for this situation."
+msgid "Because this Site is open to any registered user to upload User Postings, we cannot be responsible for the accuracy, usefulness, reliability or intellectual property rights of or relating to such User Posting. Neither the Site nor the Platform Providers have any obligation to monitor any User Postings or other information available on or through the Site. However, the Site reserves the right to review User Postings and to exercise its sole discretion to edit or remove, in whole or in part, any User Posting at any time. Copyright owners who believe their material has been infringed on the Site should contact [insert name and contact information for Site’s designated copyright agent ] and provide all requested information."
 msgstr "任何由于黑客攻击、计算机病毒侵入或发作、因政府管制而造成的暂时性关闭等影响网络正常经营的不可抗力而造成的损失，本网站均得免责（不可抗力因素不需要网站负责）。因和本网站链接的其它网站所造成的个人资料泄露及由此而导致的任何法律争议和后果，本网站均得免责。"
 
 #: worldmap/templates/aboutus.html:23
-msgid "We regard that those who get access to this site or use the data of this site in any way have accepted the constraints of this disclaimer voluntarily."
+msgid "We accept no liability for any loss or damage arising from reasons beyond our control that influences the normal operation of this website, such as hacker attacks, computer virus invasion or attack, the temporary closure caused by government regulation and so on. The Site and the Platform Providers are not responsible for, and do not routinely screen, approve, review or endorse the contents of or use of any of the products or services that may be offered at other websites linked to this Site. You access such linked websites at your own risk. If such linked websites cause the disclosure of personal information  or otherwise cause loss or damage, this Site does not undertake responsibility for this situation. "
 msgstr "凡以任何方式登陆本网站或直接、间接使用本网站资料者，视为自愿接受本网站声明的约束。"
+
+#: worldmap/templates/aboutus.html:23
+msgid "By accessing this Site or using this Site in any way, you accept the constraints and requirements of this disclaimer voluntarily. "
+msgstr " "
 
 #: worldmap/templates/site_index.html:video tutorials
 msgid "Video Tutorials"
