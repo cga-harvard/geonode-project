@@ -3,24 +3,24 @@ start_django:
 
 create_user_db:
 	#creating username for postgres
-	sudo -u postgres psql -c "CREATE USER $(USERNAME) WITH SUPERUSER PASSWORD '$(PASSWORD)';" ;
+	sudo -u postgres psql -c "CREATE USER $(PG_USERNAME) WITH SUPERUSER PASSWORD '$(PG_PASSWORD)';" ;
 
 drop_user_db:
 	#deleting username for postgres
-	sudo -u postgres psql -c "DROP ROLE $(USERNAME);"
+	sudo -u postgres psql -c "DROP ROLE $(PG_USERNAME);"
 
 create_db:
 	#Creating Databases
-	sudo -u postgres psql -c "CREATE DATABASE $(WORLDMAP_DB) WITH OWNER $(OWNER);"
-	sudo -u postgres psql -d worldmap -c "CREATE EXTENSION postgis;"
-	sudo -u postgres psql -d worldmap -c "CREATE EXTENSION dblink;"
-	sudo -u postgres psql -c "CREATE DATABASE $(WMDATA) WITH OWNER $(OWNER);"
-	sudo -u postgres psql -d wmdata -c "CREATE EXTENSION postgis;"
+	sudo -u postgres psql -c "CREATE DATABASE $(PG_WORLDMAP_DJANGO_DB) WITH OWNER $(OWNER);"
+	sudo -u postgres psql -d $(PG_WORLDMAP_DJANGO_DB) -c "CREATE EXTENSION postgis;"
+	sudo -u postgres psql -d $(PG_WORLDMAP_DJANGO_DB) -c "CREATE EXTENSION dblink;"
+	sudo -u postgres psql -c "CREATE DATABASE $(PG_WORLDMAP_UPLOADS_DB) WITH OWNER $(OWNER);"
+	sudo -u postgres psql -d $(PG_WORLDMAP_UPLOADS_DB) -c "CREATE EXTENSION postgis;"
 
 drop_db:
 	#Deleting Databases
-	sudo -u postgres psql -c "DROP DATABASE $(WORLDMAP_DB);"
-	sudo -u postgres psql -c "DROP DATABASE $(WMDATA);"
+	sudo -u postgres psql -c "DROP DATABASE $(PG_WORLDMAP_DJANGO_DB);"
+	sudo -u postgres psql -c "DROP DATABASE $(PG_WORLDMAP_UPLOADS_DB);"
 
 build: create_user_db create_db sync
 
