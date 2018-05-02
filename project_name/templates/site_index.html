@@ -215,7 +215,7 @@ This is where you can override the hero area block. You can simply modify the co
         </div>
         <div class="videoList custom-scrollbar">
             <div>
-                <div class="col-md-3 col-md-offset-1">
+                <div class="col-md-3">
                     <video class="videoItem" controls>
                         <source src="{{STATIC_URL}}video/uploadLayer.mp4" type="video/mp4">
                     </video>
@@ -233,12 +233,18 @@ This is where you can override the hero area block. You can simply modify the co
                     </video>
                     <p class="videoTitle">{% trans "Create Map by Adding Layers" %}</p>
                 </div>
+                <div class="col-md-3">
+                    <video class="videoItem" controls>
+                        <source src="{{STATIC_URL}}video/gazetteer.mp4" type="video/mp4">
+                    </video>
+                    <p class="videoTitle">{% trans "Gazetteer" %}</p>
+                </div>
             </div>
         </div>
     </div>
     
 
-    <script src="{{ STATIC_URL }}js/site_index.js"></script>
+    <script src="{{ STATIC_URL }}js/base.js"></script>
     <script>
         $(document).ready(function (e) {
             $.ajaxSetup({//set the csrf(Cross-site request forgery) when using ajax, especially the post
