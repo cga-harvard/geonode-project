@@ -19,6 +19,7 @@
 #########################################################################
 import os
 from geonode.settings import *
+from django.utils.translation import ugettext_lazy as _
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -269,10 +270,95 @@ if USE_WORLDMAP:
     GAZETTEER_DB_ALIAS = 'wmdata'
     GAZETTEER_FULLTEXTSEARCH = False
     USE_CUSTOM_ORG_AUTHORIZATION = True
-    CUSTOM_ORG_AUTH_TEXT = 'Are you affiliated with Harvard University?'
+    # Modify affiliate defaults
+    CUSTOM_ORG_AUTH_TEXT = _("Are you affiliated with Zhejiang University?")
+    # Modify the link of terms and condition 
+    CUSTOM_AGREE_TOS_TEXT = _("I agree to the <a href='/aboutus/#disclaimer'>Terms and Conditions</a>")
     # Uncomment following line if debugging GeoExplorer static files
     # GEONODE_CLIENT_LOCATION = 'http://localhost:9090/'
     GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')
+    
+    # Set TIME_ZONE to Shanghai and close USE_TZ to change the time showed in browser
+    TIME_ZONE = os.getenv('TIME_ZONE', "Asia/Shanghai")
+    USE_TZ = False
+    # Modify language settings
+    LANGUAGE_CODE = os.getenv('LANGUAGE_CODE', "zh-cn")
+    MODELTRANSLATION_LANGUAGES = ['zh-cn', ]
+    MODELTRANSLATION_DEFAULT_LANGUAGE = 'zh-cn'
+    MODELTRANSLATION_FALLBACK_LANGUAGES = ('zh-cn',)
 
+    # Modify the default permission of download data from true to false
+    DEFAULT_ANONYMOUS_VIEW_PERMISSION = strtobool(
+        os.getenv('DEFAULT_ANONYMOUS_VIEW_PERMISSION', 'True')
+    )
+    DEFAULT_ANONYMOUS_DOWNLOAD_PERMISSION = strtobool(
+        os.getenv('DEFAULT_ANONYMOUS_DOWNLOAD_PERMISSION', 'False')
+    )
+
+    # Add share links
+    SOCIAL_ORIGINS += [{
+        "label": _("WeChat Moments"),
+        "url": "http://s.jiathis.com/?webid=weixin&url={url}&title={name}&isexit=false",
+        "css_class": "wx"
+    }, {
+        "label": _("QQ"),
+        "url": "http://connect.qq.com/widget/shareqq/index.html?url={url}&title={name}&summary={abstract}",
+        "css_class": "qq"
+    }, {
+        "label": _("Qzone"),
+        "url": "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={url}&title={name}&summary={abstract}",
+        "css_class": "qz"
+    }, {
+        "label": _("Tencent Microblog"),
+        "url": "http://share.v.t.qq.com/index.php?c=share&a=index&title={name}&url={url}&line1={abstract}",
+        "css_class": "tm"
+    }, {
+        "label": _("Sina Microblog"),
+        "url": "http://service.weibo.com/share/share.php?title={name}&url={url}",
+        "css_class": "sm"
+    }, {
+        "label": _("Renren Inc"),
+        "url": "http://widget.renren.com/dialog/share?resourceUrl={url}&title={name}&description={abstract}",
+        "css_class": "rri"
+    }, {
+        "label": _("Baidu Post Bar"),
+        "url": "http://tieba.baidu.com/f/commit/share/openShareApi?url={url}&title={name}",
+        "css_class": "bpb"
+    }, {
+        "label": _("Douban"),
+        "url": "http://shuo.douban.com/!service/share?href={url}&name={name}&text={abstract}",
+        "css_class": "db"
+    }]
 
 ALLOWED_HOSTS = ['localhost', 'amap.zju.edu.cn', ]
+    # Remove google earth from download formats
+    DOWNLOAD_FORMATS_VECTOR = [
+        'JPEG', 'PDF', 'PNG', 'Zipped Shapefile', 'GML 2.0', 'GML 3.1.1', 'CSV',
+        'Excel', 'GeoJSON', 'KML', 'Tiles',
+        'QGIS layer file (.qlr)',
+        'QGIS project file (.qgs)',
+    ]
+    DOWNLOAD_FORMATS_RASTER = [
+        'JPEG',
+        'PDF',
+        'PNG',
+        'ArcGrid',
+        'GeoTIFF',
+        'Gtopo30',
+        'ImageMosaic',
+        'KML',
+        # 'View in Google Earth',
+        'Tiles',
+        'GML',
+        'GZIP',
+        'QGIS layer file (.qlr)',
+        'QGIS project file (.qgs)',
+        'Zipped All Files'
+    ]
+    # Modify the copyright in mapview
+    WM_COPYRIGHT_URL = os.getenv('WM_COPYRIGHT_URL', "http://www.zju.edu.cn/")
+    WM_COPYRIGHT_TEXT = os.getenv('WM_COPYRIGHT_TEXT', _("Bigdata and AMAP Innovation Team"))
+    # Modify the default content when save a new map
+    WM_DEFAULT_CONTENT=_(
+        "<h4>About Us</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A large amount of geographical information which is closely related to human activities exists in the brilliant human civilization, numerous documents since ancient times, as well as the vast land and ocean. For example, the geographical distribution of individuals, the traces and the social relations for a single person, the migration of a group, as well as the existence, distribution and change of a region and trajectory for non-living things; as for a place, it also contains the people, events, things and other geographical information in previous time.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Academic Map Publishing Platform, established by Zhejiang University and Harvard University together, is not only an integrated database providing multi-functional query services, but also a display platform ready for users to present their research productions about geographic information and visualize analysis and select. The big data formed by the platform, will greatly contribute to future scientific research, overnment decision-making and social services.</p>"
+    )

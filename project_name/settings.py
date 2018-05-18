@@ -58,9 +58,6 @@ PROXY_ALLOWED_HOSTS += ('nominatim.openstreetmap.org',)
 AUTH_IP_WHITELIST = []
 
 MANAGERS = ADMINS = os.getenv('ADMINS', [])
-# Set TIME_ZONE to Shanghai and close USE_TZ to change the time showed in browser
-TIME_ZONE = os.getenv('TIME_ZONE', "Asia/Shanghai")
-USE_TZ = False
 
 INSTALLED_APPS += (PROJECT_NAME,)
 
