@@ -32,7 +32,7 @@ except ImportError:
 #
 PROJECT_NAME = 'camp'
 
-SITE_NAME = 'camp'
+SITE_NAME = os.getenv('SITE_NAME', " ")
 SITENAME = 'camp'
 
 # Defines the directory that contains the settings file as the LOCAL_ROOT

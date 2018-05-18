@@ -23,8 +23,8 @@ from django.utils.translation import ugettext_lazy as _
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-MEDIA_ROOT = '%s/{{ project_name }}/uploaded/' % PROJECT_ROOT
-STATIC_ROOT = '%s/{{ project_name }}/static_root' % PROJECT_ROOT
+MEDIA_ROOT = '%s/camp/uploaded/' % PROJECT_ROOT
+STATIC_ROOT = '%s/camp/static_root' % PROJECT_ROOT
 
 # SECRET_KEY = '************************'
 # Make this unique, and don't share it with anybody.
