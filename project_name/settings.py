@@ -71,7 +71,9 @@ STATIC_ROOT = os.getenv('STATIC_ROOT',
                         )
 
 # Additional directories which hold static files
-STATICFILES_DIRS.append(
+# In order to use the staticfiles in camp earlier than in geonode, use insert instead of append
+# STATICFILES_DIRS.append(
+STATICFILES_DIRS.insert(0, 
     os.path.join(LOCAL_ROOT, "static"),
 )
 
