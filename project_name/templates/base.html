@@ -258,10 +258,10 @@
             <li><a href="{% url "developer" %}">{% trans "Developer Section" %}</a>
           </ul>
           <label class="hidden">{% trans "Language" %}</label>
-          {% if csrf_token != "NOTPROVIDED" %}
+          <!-- {\% if csrf_token != "NOTPROVIDED" %\}  --><!--since remove the csrf in settings-->
           {% get_current_language as LANGUAGE %}
           <form class="form-inline" action="/i18n/setlang/" method="post">
-          {% csrf_token %}
+          <!-- {\% csrf_token %\} -->
             <select class="col-md-8 col-md-offset-2" name="language" onchange="javascript:form.submit()">
               {% for lang in LANGUAGES %}
               <option value="{{ lang.0 }}" {% ifequal LANGUAGE_CODE lang.0 %} selected="selected"{% endifequal %}>
@@ -270,7 +270,7 @@
               {% endfor %}
             </select>
           </form>
-          {% endif %}
+          <!-- {\% endif %\} -->
         </div>
       </div>
     </div>

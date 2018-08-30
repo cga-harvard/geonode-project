@@ -46,6 +46,9 @@
     var app;
     var init = function() {
     {% autoescape off %}
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
+        });
         var config = Ext.apply({
             tools:  [{
                       ptype: "gxp_geonodequerytool",
