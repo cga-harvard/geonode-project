@@ -301,7 +301,7 @@ if USE_WORLDMAP:
     # Add share links
     SOCIAL_ORIGINS += [{
         "label": _("WeChat Moments"),
-        "url": "http://s.jiathis.com/?webid=weixin&url={url}&title={name}&isexit=false",
+        "url": "http://api.addthis.com/oexchange/0.8/forward/wechat/offer?url={url}&title={name}",
         "css_class": "wx"
     }, {
         "label": _("QQ"),
