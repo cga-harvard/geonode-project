@@ -250,6 +250,10 @@ if USE_WORLDMAP:
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
         'oauth2_provider.middleware.OAuth2TokenMiddleware',
+        # Add cache middleware for the per-site cache
+        'django.middleware.cache.UpdateCacheMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.cache.FetchFromCacheMiddleware',
     )
 
     INSTALLED_APPS += (
@@ -329,7 +333,6 @@ if USE_WORLDMAP:
         "css_class": "db"
     }]
 
-ALLOWED_HOSTS = ['localhost', 'amap.zju.edu.cn', ]
     # Remove google earth from download formats
     DOWNLOAD_FORMATS_VECTOR = [
         'JPEG', 'PDF', 'PNG', 'Zipped Shapefile', 'GML 2.0', 'GML 3.1.1', 'CSV',
@@ -361,3 +364,21 @@ ALLOWED_HOSTS = ['localhost', 'amap.zju.edu.cn', ]
     WM_DEFAULT_CONTENT=_(
         "<h4>About Us</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A large amount of geographical information which is closely related to human activities exists in the brilliant human civilization, numerous documents since ancient times, as well as the vast land and ocean. For example, the geographical distribution of individuals, the traces and the social relations for a single person, the migration of a group, as well as the existence, distribution and change of a region and trajectory for non-living things; as for a place, it also contains the people, events, things and other geographical information in previous time.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Academic Map Publishing Platform, established by Zhejiang University and Harvard University together, is not only an integrated database providing multi-functional query services, but also a display platform ready for users to present their research productions about geographic information and visualize analysis and select. The big data formed by the platform, will greatly contribute to future scientific research, overnment decision-making and social services.</p>"
     )
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.202.70.121', '::1']
+PROXY_ALLOWED_HOSTS = ('localhost', '127.0.0.1', '10.202.70.121', '::1', 'amap.zju.edu.cn', )
+# Add required settings for cache
+# CACHE_MIDDLEWARE_ALIAS # The cache alias to use for storage.
+CACHE_MIDDLEWARE_SECONDS = 15 # The number of seconds each page should be cached.
+CACHE_MIDDLEWARE_KEY_PREFIX = 'Camp' # 如果缓存被多个使用相同Django安装的网站所共享，那么把这个值设成当前网站名，或其他能代表这个Django实例的唯一字符串，以避免key发生冲突。如果你不在意的话可以设成空字符串。 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',  # 指定缓存使用的引擎
+        'LOCATION': '127.0.0.1:11211',
+        'TIMEOUT':15,# default:300, None: never timeout
+        'OPTIONS':{
+            'MAX_ENTRIES': 300,# The max entries for cache record, default:300
+            'CULL_FREQUENCY': 3,# The percent to delete cache when the number of entrys reached the max limit, default: 1/3
+        }  
+    }
+}
