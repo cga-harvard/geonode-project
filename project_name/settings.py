@@ -436,15 +436,6 @@ LOGGING = {
 # other settings specific to WorldMap CAMP #
 ############################################
 
-# SECRET_KEY = '************************'
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = os.getenv('SECRET_KEY', "{{ secret_key }}")
-
-# per-deployment settings should go here
-SITE_HOST_NAME = os.getenv('SITE_HOST_NAME', "localhost")
-SITE_HOST_PORT = os.getenv('SITE_HOST_PORT', "8000")
-SITEURL = os.getenv('SITEURL', "http://%s:%s/" % (SITE_HOST_NAME, SITE_HOST_PORT))
-
 #
 # General Django development settings
 #
@@ -454,18 +445,13 @@ EMAIL_ENABLE = True
 
 if EMAIL_ENABLE:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'smtp.zju.edu.cn'
+    EMAIL_HOST = os.getenv('EMAIL_HOST', default='')
     EMAIL_PORT = 25
-    EMAIL_HOST_USER = 'camp2018@zju.edu.cn'
-    EMAIL_HOST_PASSWORD = 'zjuworldmap120!'
+    EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', default='')
+    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', default='')
     EMAIL_USE_TLS = True
-    DEFAULT_FROM_EMAIL = 'camp2018@zju.edu.cn'
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-
-POSTGIS_VERSION = (2, 0, 7)
-
-PG_USERNAME = os.getenv('PG_USERNAME', "worldmap")
-PG_PASSWORD = os.getenv('PG_PASSWORD', "worldmap")
 PG_WORLDMAP_DJANGO_DB = os.getenv('PG_WORLDMAP_DJANGO_DB', "worldmap")
 PG_WORLDMAP_UPLOADS_DB = os.getenv('PG_WORLDMAP_UPLOADS_DB', "wmdata")
 
@@ -516,7 +502,7 @@ OGC_SERVER_DEFAULT_USER = os.getenv(
 )
 
 OGC_SERVER_DEFAULT_PASSWORD = os.getenv(
-    'GEOSERVER_ADMIN_PASSWORD', 'zju120!'
+    'GEOSERVER_ADMIN_PASSWORD', ''
 )
 
 # OGC (WMS/WFS/WCS) Server Settings
@@ -546,82 +532,6 @@ OGC_SERVER = {
     }
 }
 
-CATALOGUE = {
-    'default': {
-        # The underlying CSW implementation
-        # default is pycsw in local mode (tied directly to GeoNode Django DB)
-        'ENGINE': 'geonode.catalogue.backends.pycsw_local',
-        # pycsw in non-local mode
-        # 'ENGINE': 'geonode.catalogue.backends.pycsw_http',
-        # GeoNetwork opensource
-        # 'ENGINE': 'geonode.catalogue.backends.geonetwork',
-        # deegree and others
-        # 'ENGINE': 'geonode.catalogue.backends.generic',
-
-        # The FULLY QUALIFIED base url to the CSW instance for this GeoNode
-        'URL': '%s/catalogue/csw' % SITEURL,
-        # 'URL': 'http://localhost:8080/geonetwork/srv/en/csw',
-        # 'URL': 'http://localhost:8080/deegree-csw-demo-3.0.4/services',
-
-        # login credentials (for GeoNetwork)
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'ALTERNATES_ONLY': True,
-    }
-}
-
-# pycsw settings
-PYCSW = {
-    # pycsw configuration
-    'CONFIGURATION': {
-        # uncomment / adjust to override server config system defaults
-        # 'server': {
-        #    'maxrecords': '10',
-        #    'pretty_print': 'true',
-        #    'federatedcatalogues': 'http://catalog.data.gov/csw'
-        # },
-        'metadata:main': {
-            'identification_title': 'GeoNode Catalogue',
-            'identification_abstract': 'GeoNode is an open source platform' \
-            ' that facilitates the creation, sharing, and collaborative use' \
-            ' of geospatial data',
-            'identification_keywords': 'sdi, catalogue, discovery, metadata,' \
-            ' GeoNode',
-            'identification_keywords_type': 'theme',
-            'identification_fees': 'None',
-            'identification_accessconstraints': 'None',
-            'provider_name': 'Organization Name',
-            'provider_url': SITEURL,
-            'contact_name': 'Lastname, Firstname',
-            'contact_position': 'Position Title',
-            'contact_address': 'Mailing Address',
-            'contact_city': 'City',
-            'contact_stateorprovince': 'Administrative Area',
-            'contact_postalcode': 'Zip or Postal Code',
-            'contact_country': 'Country',
-            'contact_phone': '+xx-xxx-xxx-xxxx',
-            'contact_fax': '+xx-xxx-xxx-xxxx',
-            'contact_email': 'Email Address',
-            'contact_url': 'Contact URL',
-            'contact_hours': 'Hours of Service',
-            'contact_instructions': 'During hours of service. Off on ' \
-            'weekends.',
-            'contact_role': 'pointOfContact',
-        },
-        'metadata:inspire': {
-            'enabled': 'true',
-            'languages_supported': 'eng,gre',
-            'default_language': 'eng',
-            'date': 'YYYY-MM-DD',
-            'gemet_keywords': 'Utility and governmental services',
-            'conformity_service': 'notEvaluated',
-            'contact_name': 'Organization Name',
-            'contact_email': 'Email Address',
-            'temp_extent': 'YYYY-MM-DD/YYYY-MM-DD',
-        }
-    }
-}
-
 # If you want to enable Mosaics use the following configuration
 UPLOADER = {
     'BACKEND': 'geonode.rest',
@@ -646,41 +556,16 @@ UPLOADER = {
 
 
 # for now we remove CsrfViewMiddleware, which creates failures on x-csrftoken
-# We need to fix this 
-MIDDLEWARE_CLASSES = (
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'pagination.middleware.PaginationMiddleware',
+# We need to fix this
+MIDDLEWARE_CLASSES += (
     # 'django.middleware.csrf.CsrfViewMiddleware', # remove csrf because it will stop users from extranet
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'oauth2_provider.middleware.OAuth2TokenMiddleware',
     # Add cache middleware for the per-site cache
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
-INSTALLED_APPS += (
-        'geonode.contrib.worldmap.gazetteer',
-        'geonode.contrib.worldmap.queue',
-        'geonode.contrib.worldmap.wm_extra',
-        'geonode.contrib.createlayer',
-    )
-
-HYPERMAP_REGISTRY_URL = os.getenv('HYPERMAP_REGISTRY_URL', 'http://localhost:8001')
-SOLR_URL = os.getenv('SOLR_URL', 'http://localhost:8983/solr/hypermap/select/')
-MAPPROXY_URL = os.getenv('MAPPROXY_URL', 'http://localhost:8001')
-
 # Other settings
-GEONODE_CLIENT_LOCATION = '/static/worldmap/worldmap_client/'
-USE_GAZETTEER = True
-GAZETTEER_DB_ALIAS = 'wmdata'
-GAZETTEER_FULLTEXTSEARCH = False
 USE_CUSTOM_ORG_AUTHORIZATION = True
 # Modify affiliate defaults
 CUSTOM_ORG_AUTH_TEXT = _("Are you affiliated with Zhejiang University?")
@@ -688,16 +573,14 @@ CUSTOM_ORG_AUTH_TEXT = _("Are you affiliated with Zhejiang University?")
 CUSTOM_AGREE_TOS_TEXT = _("I agree to the <a href='/aboutus/#disclaimer'>Terms and Conditions</a>")
 # Uncomment following line if debugging GeoExplorer static files
 # GEONODE_CLIENT_LOCATION = 'http://localhost:9090/'
-GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')
 
 # Set TIME_ZONE to Shanghai and close USE_TZ to change the time showed in browser
 TIME_ZONE = os.getenv('TIME_ZONE', "Asia/Shanghai")
 USE_TZ = False
 # Modify language settings
-LANGUAGE_CODE = os.getenv('LANGUAGE_CODE', "zh-cn")
-MODELTRANSLATION_LANGUAGES = ['zh-cn', ]
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'zh-cn'
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('zh-cn',)
+MODELTRANSLATION_LANGUAGES = [LANGUAGE_CODE, ]
+MODELTRANSLATION_DEFAULT_LANGUAGE = LANGUAGE_CODE
+MODELTRANSLATION_FALLBACK_LANGUAGES = (LANGUAGE_CODE,)
 
 # Modify the default permission of download data from true to false
 DEFAULT_ANONYMOUS_VIEW_PERMISSION = strtobool(
@@ -774,8 +657,8 @@ WM_DEFAULT_CONTENT=_(
     "<h4>About Us</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A large amount of geographical information which is closely related to human activities exists in the brilliant human civilization, numerous documents since ancient times, as well as the vast land and ocean. For example, the geographical distribution of individuals, the traces and the social relations for a single person, the migration of a group, as well as the existence, distribution and change of a region and trajectory for non-living things; as for a place, it also contains the people, events, things and other geographical information in previous time.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Academic Map Publishing Platform, established by Zhejiang University and Harvard University together, is not only an integrated database providing multi-functional query services, but also a display platform ready for users to present their research productions about geographic information and visualize analysis and select. The big data formed by the platform, will greatly contribute to future scientific research, overnment decision-making and social services.</p>"
 )
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.202.70.121', '::1']
-PROXY_ALLOWED_HOSTS = ('localhost', '127.0.0.1', '10.202.70.121', '::1', 'amap.zju.edu.cn', )
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.202.70.121', '::1']
+# PROXY_ALLOWED_HOSTS = ('localhost', '127.0.0.1', '10.202.70.121', '::1', 'amap.zju.edu.cn', )
 # Add required settings for cache
 # CACHE_MIDDLEWARE_ALIAS # The cache alias to use for storage.
 CACHE_MIDDLEWARE_SECONDS = 15 # The number of seconds each page should be cached.
