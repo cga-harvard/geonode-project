@@ -3,26 +3,6 @@ import json
 from django.http import HttpResponse
 from geonode.base.models import TopicCategory, ResourceBase
 
-# get the category list
-def get_categorys(request):
-    """
-    return the category
-    :param request: language
-    :return:
-    """
-    if request.POST.has_key('language'):
-        language = request.POST['language']
-        key = 'gn_description'
-    categorys = TopicCategory.objects.all().values('id',key)
-    category_dict ={}
-    for category in categorys:
-        category_dict[category['id']] = [category[key]]
-    categoryjson = json.dumps(category_dict)
-    # from django.utils import simplejson
-    # return HttpResponse(simplejson.dumps(category, ensure_ascii=False))
-    return HttpResponse(categoryjson)
-
-
 # get the major maps created by admin, or get the hotest and latest layer/map
 def get_most_maps(request):
     """

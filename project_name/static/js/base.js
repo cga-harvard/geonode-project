@@ -15,17 +15,14 @@ function selectOnChange2(obj){
 	showMaps("tmi2","latest", value);
 }
 function showCategorys(language){
-	var url = "/getCategory/";
+	var url = "/api/categories";
 	var data = null;
 	var csrftoken = getCookie('csrftoken');
 	$.ajax({
 		url: url,
 		async: false,
 		cache: false,
-		type: "POST",
-        data: {
-            language: language
-        },
+		type: "GET",
 		success: function (res) {
 			data = $.parseJSON(res);
 		},
@@ -34,9 +31,9 @@ function showCategorys(language){
 		}
 	});
 	var selectHTML = "";
-	for(category in data){
-		var categoryid = parseInt(category);
-		var categorydescription = data[category][0];
+	for(category in data.objects){
+		var categoryid = parseInt(category.id);
+		var categorydescription = category.gn_description_zh_cn;
 		selectHTML += "<option value="+categoryid+">"+categorydescription+"</option>"
 	}
 	$("#category1").append(selectHTML);
