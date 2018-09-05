@@ -1,4 +1,5 @@
 {% load i18n avatar_tags %}
+{% load static from staticfiles %}
 {% load account socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
@@ -16,19 +17,19 @@
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
     {% block head %}
       {% if DEBUG_STATIC %}
-          <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css?v={{ VERSION }}" rel="stylesheet" />
-          <link href="{{ STATIC_URL }}lib/css/select2.css?v={{ VERSION }}" rel="stylesheet"/>
-          <link href="{{ STATIC_URL }}lib/css/bootstrap.min.css?v={{ VERSION }}" rel="stylesheet"/>
-          <link href="{{ STATIC_URL }}lib/css/jquery-ui.css?v={{ VERSION }}" rel="stylesheet"/>
+          <link href="{% static "lib/css/jquery.dataTables.css" %}?v={{ VERSION }}" rel="stylesheet" />
+          <link href="{% static "lib/css/select2.css" %}?v={{ VERSION }}" rel="stylesheet"/>
+          <link href="{% static "lib/css/bootstrap.min.css" %}?v={{ VERSION }}" rel="stylesheet"/>
+          <link href="{% static "lib/css/jquery-ui.css" %}?v={{ VERSION }}" rel="stylesheet"/>
       {% else %}
-        <link href="{{ STATIC_URL }}lib/css/assets.min.css?v={{ VERSION }}" rel="stylesheet"/>
+        <link href="{% static "lib/css/assets.min.css" %}?v={{ VERSION }}" rel="stylesheet"/>
       {% endif %}
 
-      <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css?v={{ VERSION }}" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/ux-all.css?v={{ VERSION }}" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/base.css?v={{ VERSION }}" rel="stylesheet" />
+      <link href="{% static "geonode/css/ext-compatibility.css" %}?v={{ VERSION }}" rel="stylesheet" />
+      <link href="{% static "geonode/css/ux-all.css" %}?v={{ VERSION }}" rel="stylesheet" />
+      <link href="{% static "geonode/css/base.css" %}?v={{ VERSION }}" rel="stylesheet" />
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
-      <link rel="icon" href="{{ STATIC_URL }}img/icon.ico" type="image/x-icon"/>
+
       {% block extra_head %}
       {% endblock %}
     {% endblock %}
@@ -64,15 +65,17 @@
               <ul class="dropdown-menu">
                 <li><a href="{% url "layer_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Layers" %}</a></li>
                 <li><a href="{% url "document_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Documents" %}</a></li>
-                {% if user.is_authenticated %}
                 <li><a href="{% url "services" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Remote Services" %}</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="{% url "layer_upload" %}">{% trans "Upload Layer" %}</a></li>
-                {% if 'geonode.contrib.createlayer' in INSTALLED_APPS %}
-                  <li><a href="{% url "layer_create" %}">{% trans "Create Layer" %}</a></li>
+                {% if user.is_authenticated %}
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{% url "layer_upload" %}">Upload Layer</a></li>
+                    {% if 'geonode.contrib.createlayer' in INSTALLED_APPS %}
+                        <li><a href="{% url "layer_create" %}">{% trans "Create Layer" %}</a></li>
+                    {% endif %}
+                    <li><a href="{% url "document_upload" %}">Upload Document</a></li>
                 {% endif %}
-                <li><a href="{% url "document_upload" %}">{% trans "Upload Document" %}</a></li>
-                <li><a href="{% url "register_service" %}">{% trans "Add Remote Service" %}</a></li>
+                {% if user.is_superuser or user.is_staff %}
+                    <li><a href="{% url "register_service" %}">{% trans "Add Remote Service" %}</a></li>
                 {% endif %}
               </ul>
             </li>
@@ -142,19 +145,21 @@
                 <li><a href="{{ user.get_absolute_url }}">{% trans "Profile" %}</a></li>
                 <li><a href="{% url "recent-activity" %}">{% trans "Recent Activity" %}</a></li>
                 <li><a href="{% url "messages_inbox" %}">{% trans "Inbox" %}</a></li>
-                <li role="separator" class="divider"></li>
-              <li><a href="{% url "admin:index" %}">{% trans "Admin" %}</a></li>
-                {% if 'geonode.geoserver' in INSTALLED_APPS %}
-                <li><a href="{% url "proxy" %}?url={{ GEOSERVER_BASE_URL }}web">GeoServer</a></li>
-                {% endif %}
-                {% if user.is_superuser and USE_MONITORING %}
-                <li role="separator" class="divider"></li>
-                <li><a href="{% url "monitoring:index" %}">{% trans "Monitoring" %}</a></li>
+                {% if user.is_superuser or user.is_staff %}
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{% url "admin:index" %}">{% trans "Admin" %}</a></li>
+                    {% if 'geonode.geoserver' in INSTALLED_APPS %}
+                    <li><a href="{% url "proxy" %}?url={{ OGC_SERVER.default.LOCATION }}">GeoServer</a></li>
+                    {% endif %}
+                    {% if USE_MONITORING %}
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{% url "monitoring:index" %}">{% trans "Monitoring" %}</a></li>
+                    {% endif %}
                 {% endif %}
 <!--                 <li role="separator" class="divider"></li>
                 <li><a href="{% url "help" %}">{% trans "Help" %}</a></li> -->
                 <li role="separator" class="divider"></li>
-              <li><a href="/account/logout/">{% trans "Log out" %}</a></li>
+                <li><a href="/account/logout/">{% trans "Log out" %}</a></li>
                 </ul>
               </li>
           {% else %}
@@ -191,6 +196,10 @@
       {% endblock %}
     </div>
     {% endblock middle %}
+
+    {% block extra_mainbody %}
+    {% endblock extra_mainbody %}
+
   </div>
 
   {% block monitoring %}
@@ -205,14 +214,17 @@
             <li>{% trans "Data" %}</li>
             <li><a href="{% url "layer_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Layers" %}</a></li>
             <li><a href="{% url "document_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Documents" %}</a></li>
-            {% if user.is_authenticated %}
             <li><a href="{% url "services" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Remote Services" %}</a></li>
-            <li><a href="{% url "layer_upload" %}">{% trans "Upload Layer" %}</a></li>
-            {% if 'geonode.contrib.createlayer' in INSTALLED_APPS %}
-              <li><a href="{% url "layer_create" %}">{% trans "Create Layer" %}</a></li>
+            {% if user.is_authenticated %}
+                <li role="separator" class="divider"></li>
+                <li><a href="{% url "layer_upload" %}">{% trans "Upload Layer" %}</a></li>
+                {% if 'geonode.contrib.createlayer' in INSTALLED_APPS %}
+                    <li><a href="{% url "layer_create" %}">{% trans "Create Layer" %}</a></li>
+                {% endif %}
+                <li><a href="{% url "document_upload" %}">{% trans "Upload Document" %}</a></li>
             {% endif %}
-            <li><a href="{% url "document_upload" %}">{% trans "Upload Document" %}</a></li>
-            <li><a href="{% url "register_service" %}">{% trans "Add Remote Service" %}</a></li>
+            {% if user.is_superuser or user.is_staff %}
+                <li><a href="{% url "register_service" %}">{% trans "Add Remote Service" %}</a></li>
             {% endif %}
           </ul>
         </div>
@@ -241,6 +253,8 @@
           </ul>
         </div>
         <div class="col-md-2">
+          {% block contactus %}
+          {% endblock contactus %}
           <ul class="list-unstyled">
             <li>{% trans "Contact Us" %}</li>
             <li><a href='http://rwsk.zju.edu.cn/'>{%  trans "K&SS ZJU" %}</a></li>
@@ -319,24 +333,24 @@
     <!-- End of Modal -->
 
     {% if DEBUG_STATIC %}
-    <script src="{{ STATIC_URL }}lib/js/jquery.min.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.dataTables.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.timeago.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.ajaxprogress.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.ajaxQueue.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery-ui.custom.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.raty.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/bootstrap.min.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/moment-with-locales.min.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/bootstrap-datetimepicker.min.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/json2.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/select2.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/waypoints.js?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/jquery.min.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/jquery.dataTables.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/jquery.timeago.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/jquery.ajaxprogress.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/jquery.ajaxQueue.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/jquery-ui.custom.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/jquery.raty.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/bootstrap.min.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/moment-with-locales.min.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/bootstrap-datetimepicker.min.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/json2.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/select2.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/waypoints.js" %}?v={{ VERSION }}"></script>
     {% else %}
-    <script src="{{ STATIC_URL }}lib/js/assets.min.js?v={{ VERSION }}"></script>
+    <script src="{% static "lib/js/assets.min.js" %}?v={{ VERSION }}"></script>
     {% endif %}
-    <script src="{{ STATIC_URL }}geonode/js/utils/utils.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}geonode/js/base/base.js?v={{ VERSION }}"></script>
+    <script src="{% static "geonode/js/utils/utils.js" %}?v={{ VERSION }}"></script>
+    <script src="{% static "geonode/js/base/base.js" %}?v={{ VERSION }}"></script>
     {% include 'autocomplete_light/static.html' %}
     <script type="text/javascript" src="{% url "javascript-catalog" %}"></script>
     {% block extra_script %}{% endblock extra_script %}
