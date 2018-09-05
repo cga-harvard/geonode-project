@@ -272,4 +272,4 @@ if USE_WORLDMAP:
     # Uncomment following line if debugging GeoExplorer static files
     # GEONODE_CLIENT_LOCATION = 'http://localhost:9090/'
 
-ALLOWED_HOSTS = ['localhost', 'amap.zju.edu.cn', ]
+ALLOWED_HOSTS = ['localhost', '192.168.33.17', ]
