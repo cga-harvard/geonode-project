@@ -2,6 +2,7 @@ import json
 
 from django.http import HttpResponse
 from geonode.base.models import TopicCategory, ResourceBase
+from geonode.maps.models import Map
 
 # get the major maps created by admin, or get the hotest and latest layer/map
 def get_most_maps(request):
