@@ -5,3 +5,10 @@
   height: 65px;
   width: 200px;
 }
+
+/*Modifying text styles of scroll pictures*/
+.carousel-caption {
+  color: #000;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+  font-size: 150%;
+}
