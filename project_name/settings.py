@@ -436,6 +436,10 @@ LOGGING = {
 # other settings specific to WorldMap CAMP #
 ############################################
 
+# per-deployment settings should go here
+SITE_HOST_NAME = os.getenv('SITE_HOST_NAME', "localhost")
+SITE_HOST_PORT = os.getenv('SITE_HOST_PORT', "8000")
+
 #
 # General Django development settings
 #
