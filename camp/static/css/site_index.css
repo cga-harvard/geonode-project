@@ -65,6 +65,13 @@ footer a{
 	border-radius: 20px;
 }
 
+/*Modifying text styles of scroll pictures*/
+.carousel-caption {
+  color: #000;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+  font-size: 150%;
+}
+
 .topRightDiv {
 	width: 31%;
 	margin-left: 1%;

@@ -22,14 +22,13 @@ from django.conf.urls import patterns, url, include
 from django.views.generic import TemplateView
 
 from geonode.urls import urlpatterns
-from .views import (get_categorys, get_most_maps,)
+from .views import (get_most_maps,)
 
 urlpatterns += (
 ## include your urls here
     url(r'^aboutus/$', 
   	    TemplateView.as_view(template_name='aboutus.html'),
         name='aboutus'),
-    url(r'^getCategory/', get_categorys, name='getCategory'),
     url(r'^getMostMaps/', get_most_maps, name='getMostMaps'),
 )
 
