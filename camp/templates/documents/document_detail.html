@@ -234,7 +234,7 @@
 {% block extra_script %}
 {{ block.super }}
 {% if DISPLAY_SOCIAL %}
-    {% include 'facebook_sdk.html' %}
+     <!-- {\% include 'facebook_sdk.html' \%} -->
 {% endif %}
     {% if request.user.is_authenticated %}
         {% user_rating_js request.user resource "document" %}
@@ -245,11 +245,11 @@
     {% include 'request_download.html' %}
     <script type="text/javascript">
         {% if DISPLAY_SOCIAL %}
-        (function() {
-            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-            po.src = 'https://apis.google.com/js/plusone.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-        })();
+        // (function() {
+        //     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        //     po.src = 'https://apis.google.com/js/plusone.js';
+        //     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        // })();
         {% endif %}
     </script>
     {% include "_permissions_form_js.html" %}
