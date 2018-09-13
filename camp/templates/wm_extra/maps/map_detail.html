@@ -295,7 +295,7 @@
 {% block extra_script %}
 {{ block.super }}
 {% if DISPLAY_SOCIAL %}
-    {% include 'facebook_sdk.html' %}
+    <!-- {\% include 'facebook_sdk.html' \%} -->
 {% endif %}
 {% if request.user.is_authenticated %}
       {% user_rating_js request.user resource "map" %}
