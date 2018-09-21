@@ -118,7 +118,6 @@ SOCIALACCOUNT_AUTO_SIGNUP = False
 # Uncomment this to enable Linkedin and Facebook login
 # INSTALLED_APPS += (
 #     'allauth.socialaccount.providers.linkedin_oauth2',
-#     'allauth.socialaccount.providers.facebook',
 # )
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -142,29 +141,9 @@ SOCIALACCOUNT_PROVIDERS = {
             'summary',
         ]
     },
-    'facebook': {
-        'METHOD': 'oauth2',
-        'SCOPE': [
-            'email',
-            'public_profile',
-        ],
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'verified',
-            'locale',
-            'timezone',
-            'link',
-            'gender',
-        ]
-    },
 }
 
 SOCIALACCOUNT_PROFILE_EXTRACTORS = {
-    "facebook": "geonode.people.profileextractors.FacebookExtractor",
     "linkedin_oauth2": "geonode.people.profileextractors.LinkedInExtractor",
 }
 
