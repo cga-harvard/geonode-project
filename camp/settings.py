@@ -501,17 +501,19 @@ OGC_SERVER = {
         'MAPFISH_PRINT_ENABLED': True,
         'PRINT_NG_ENABLED': True,
         'GEONODE_SECURITY_ENABLED': True,
-        'GEOFENCE_SECURITY_ENABLED': True,
+        'GEOFENCE_SECURITY_ENABLED': GEOFENCE_SECURITY_ENABLED,
+        'GEOFENCE_URL': os.getenv('GEOFENCE_URL', 'internal:/'),
         'GEOGIG_ENABLED': False,
         'WMST_ENABLED': False,
         'BACKEND_WRITE_ENABLED': True,
         'WPS_ENABLED': False,
-        'LOG_FILE': '/home/geosolutions/work/logs/geoserver.log',
+        'LOG_FILE': '%s/geoserver/data/logs/geoserver.log',
         # Set to dictionary identifier of database containing spatial data in
         # DATABASES dictionary to enable
-        'DATASTORE': 'wmdata',
+        'DATASTORE': os.getenv('DEFAULT_BACKEND_DATASTORE', 'wmdata'),
         'PG_GEOGIG': False,
-        'TIMEOUT': 30  # number of seconds to allow for HTTP requests
+        # 'CACHE': ".cache"  # local cache file to for HTTP requests
+        'TIMEOUT': int(os.getenv('OGC_REQUEST_TIMEOUT', '30'))  # number of seconds to allow for HTTP requests
     }
 }
 
