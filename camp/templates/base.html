@@ -24,7 +24,6 @@
       {% else %}
         <link href="{% static "lib/css/assets.min.css" %}?v={{ VERSION }}" rel="stylesheet"/>
       {% endif %}
-
       <link href="{% static "geonode/css/ext-compatibility.css" %}?v={{ VERSION }}" rel="stylesheet" />
       <link href="{% static "geonode/css/ux-all.css" %}?v={{ VERSION }}" rel="stylesheet" />
       <link href="{% static "geonode/css/base.css" %}?v={{ VERSION }}" rel="stylesheet" />
@@ -68,11 +67,11 @@
                 <li><a href="{% url "services" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Remote Services" %}</a></li>
                 {% if user.is_authenticated %}
                     <li role="separator" class="divider"></li>
-                    <li><a href="{% url "layer_upload" %}">Upload Layer</a></li>
+                    <li><a href="{% url "layer_upload" %}">{% trans "Upload Layer" %}</a></li>
                     {% if 'geonode.contrib.createlayer' in INSTALLED_APPS %}
                         <li><a href="{% url "layer_create" %}">{% trans "Create Layer" %}</a></li>
                     {% endif %}
-                    <li><a href="{% url "document_upload" %}">Upload Document</a></li>
+                    <li><a href="{% url "document_upload" %}">{% trans "Upload Document" %}</a></li>
                 {% endif %}
                 {% if user.is_superuser or user.is_staff %}
                     <li><a href="{% url "register_service" %}">{% trans "Add Remote Service" %}</a></li>
@@ -118,9 +117,9 @@
                 <form id="search" action="{% url "search" %}" >
                   <span class="fa fa-search"></span>
                   {% if HAYSTACK_SEARCH %}
-                  <input id="search_input" type="text" placeholder="Search" name="q">
+                  <input id="search_input" type="text" placeholder="{% trans 'Search' %}" name="q">
                   {% else %}
-                  <input id="search_input" type="text" placeholder="Search" name="title__icontains">
+                  <input id="search_input" type="text" placeholder="{% trans 'Search' %}" name="title__icontains">
                   {% endif %}
                 </form>
               </div>
@@ -149,7 +148,7 @@
                     <li role="separator" class="divider"></li>
                     <li><a href="{% url "admin:index" %}">{% trans "Admin" %}</a></li>
                     {% if 'geonode.geoserver' in INSTALLED_APPS %}
-                    <li><a href="{% url "proxy" %}?url={{ OGC_SERVER.default.LOCATION }}">GeoServer</a></li>
+                    <li><a href="{% url "proxy" %}?url={{ OGC_SERVER.default.LOCATION }}">{% trans "GeoServer" %}</a></li>
                     {% endif %}
                     {% if USE_MONITORING %}
                     <li role="separator" class="divider"></li>
