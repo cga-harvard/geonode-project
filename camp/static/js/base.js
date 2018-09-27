@@ -43,7 +43,7 @@ function showCategorys(language){
 }
 function showMaps(divIdPrefix, type, category){
 	var result = null;
-	var url = "/getMostMaps/";
+	var url = "/maps/list/hottest/";
 	var csrftoken = getCookie('csrftoken');
 	$.ajax({
 		url: url,

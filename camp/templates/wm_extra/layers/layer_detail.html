@@ -1,6 +1,5 @@
 {% extends "layers/layer_base.html" %}
 {% load i18n %}
-{% load staticfiles %}
 {% load dialogos_tags %}
 {% load agon_ratings_tags %}
 {% load bootstrap_tags %}
@@ -8,8 +7,9 @@
 {% load base_tags %}
 {% load guardian_tags %}
 {% load client_lib_tags %}
+{% load static from staticfiles %}
 
-{% block title %}{{ resource.title|default:resource.alternate }} — {{ block.super }}{% endblock %}
+{% block title %}{{ resource.title|default:resource.alternate }} ~ {{ block.super }}{% endblock %}
 
 {% block head %}
 
@@ -21,7 +21,7 @@
     {% include "base/_resourcebase_opengraph.html" %}
   {% endif %}
 
-  {% get_layer_detail %}
+  {% include "wm_extra/layers/layer_include.html" %}
 {{ block.super }}
 {% endblock %}
 
@@ -522,19 +522,19 @@
             <h4 class="modal-title" id="myModalLabel">{% trans "Download Metadata" %}</h4>
           </div>
           <div class="modal-body">
-		    <div style="margin-bottom:20px">
-				 <h5 class="modal-title" id="myModalLabel">
-				Full metadata
-				 </h5>
+        <div style="margin-bottom:20px">
+         <h5 class="modal-title" id="myModalLabel">
+        Full metadata
+         </h5>
                  <ul>
- 					<li><a target="_blank" href="../catalogue/csw_to_extra_format/{{resource.uuid}}/{{resource.title}}.txt"> Text format </a></li>
- 					<li><a target="_blank" href="../catalogue/csw_to_extra_format/{{resource.uuid}}/{{resource.title}}.html"> HTML format </a></li>
- 				</ul>
-			</div>
-		    <div style="margin-bottom:20px">
-			<h5 class="modal-title" id="myModalLabel">
-			Standard Metadata - XML format
-			</h5>
+          <li><a target="_blank" href="../catalogue/csw_to_extra_format/{{resource.uuid}}/{{resource.title}}.txt"> Text format </a></li>
+          <li><a target="_blank" href="../catalogue/csw_to_extra_format/{{resource.uuid}}/{{resource.title}}.html"> HTML format </a></li>
+        </ul>
+      </div>
+        <div style="margin-bottom:20px">
+      <h5 class="modal-title" id="myModalLabel">
+      Standard Metadata - XML format
+      </h5>
             <ul>
               {% for link in metadata %}
                 <li><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></li>
@@ -717,7 +717,7 @@
                 $('#form_post_comment_div').modal().find('form')[0].reset();
                 $('#form_post_comment_div').modal('hide');
                 $('#comments_section').load(window.location.pathname + ' #comments_section',
-                		function(){$(this).children().unwrap()})
+                    function(){$(this).children().unwrap()})
               }
             });
             return false;
@@ -739,22 +739,23 @@
     });
     {% endif %}
         </script>
-
-    {% block thumbnail_script %}
-        <script type="text/javascript">
-            {% if preview == 'react' %}
-            $('#set_thumbnail').click(function(){
-              window.setThumbnail({{resource.id}})
-              $('#edit-layer').modal('toggle');
-            });
-            {% else %}
-            $('#set_thumbnail').click(function(){
-              createMapThumbnail();
-              $('#edit-layer').modal('toggle');
-            });
-            {% endif %}
-        </script>
-    {% endblock thumbnail_script %}
+    {% include "_permissions_form_js.html" %}
+    <script type="text/javascript" src="{% static "geonode/js/utils/thumbnail.js" %}"></script>
+    <script type="text/javascript">
+        $('#set_thumbnail').click(function(){
+          createMapThumbnail();
+          $('#edit-map').modal('toggle');
+        });
+        $('#embed-map-list li').click(function(){
+          if ($(this).attr('id') === 'embed-iframe-link')
+          {
+              $('#embed-iframe').modal('toggle');
+          }
+          else if ($(this).attr('id') === 'embed-widget-link') {
+              $('#embed-widget').modal('toggle');
+          }
+        });
+    </script>
 
     <script type="text/javascript">
       // set default values for the logical operator list
@@ -965,7 +966,4 @@
       {% endif %}
     </script>
 
-    {% if GEONODE_SECURITY_ENABLED %}
-    {% include "_permissions_form_js.html" %}
-    {% endif %}
-{% endblock extra_script %}
+{% endblock %}

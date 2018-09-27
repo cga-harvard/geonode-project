@@ -118,7 +118,6 @@ SOCIALACCOUNT_AUTO_SIGNUP = False
 # Uncomment this to enable Linkedin and Facebook login
 # INSTALLED_APPS += (
 #     'allauth.socialaccount.providers.linkedin_oauth2',
-#     'allauth.socialaccount.providers.facebook',
 # )
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -142,29 +141,9 @@ SOCIALACCOUNT_PROVIDERS = {
             'summary',
         ]
     },
-    'facebook': {
-        'METHOD': 'oauth2',
-        'SCOPE': [
-            'email',
-            'public_profile',
-        ],
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'verified',
-            'locale',
-            'timezone',
-            'link',
-            'gender',
-        ]
-    },
 }
 
 SOCIALACCOUNT_PROFILE_EXTRACTORS = {
-    "facebook": "geonode.people.profileextractors.FacebookExtractor",
     "linkedin_oauth2": "geonode.people.profileextractors.LinkedInExtractor",
 }
 
@@ -522,17 +501,19 @@ OGC_SERVER = {
         'MAPFISH_PRINT_ENABLED': True,
         'PRINT_NG_ENABLED': True,
         'GEONODE_SECURITY_ENABLED': True,
-        'GEOFENCE_SECURITY_ENABLED': True,
+        'GEOFENCE_SECURITY_ENABLED': GEOFENCE_SECURITY_ENABLED,
+        'GEOFENCE_URL': os.getenv('GEOFENCE_URL', 'internal:/'),
         'GEOGIG_ENABLED': False,
         'WMST_ENABLED': False,
         'BACKEND_WRITE_ENABLED': True,
         'WPS_ENABLED': False,
-        'LOG_FILE': '/home/geosolutions/work/logs/geoserver.log',
+        'LOG_FILE': '%s/geoserver/data/logs/geoserver.log',
         # Set to dictionary identifier of database containing spatial data in
         # DATABASES dictionary to enable
-        'DATASTORE': 'wmdata',
+        'DATASTORE': os.getenv('DEFAULT_BACKEND_DATASTORE', 'wmdata'),
         'PG_GEOGIG': False,
-        'TIMEOUT': 30  # number of seconds to allow for HTTP requests
+        # 'CACHE': ".cache"  # local cache file to for HTTP requests
+        'TIMEOUT': int(os.getenv('OGC_REQUEST_TIMEOUT', '30'))  # number of seconds to allow for HTTP requests
     }
 }
 
@@ -655,10 +636,6 @@ DOWNLOAD_FORMATS_RASTER = [
 # Modify the copyright in mapview
 WM_COPYRIGHT_URL = os.getenv('WM_COPYRIGHT_URL', "http://www.zju.edu.cn/")
 WM_COPYRIGHT_TEXT = os.getenv('WM_COPYRIGHT_TEXT', _("Bigdata and AMAP Innovation Team"))
-# Modify the default content when save a new map
-WM_DEFAULT_CONTENT=_(
-    "<h4>About Us</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A large amount of geographical information which is closely related to human activities exists in the brilliant human civilization, numerous documents since ancient times, as well as the vast land and ocean. For example, the geographical distribution of individuals, the traces and the social relations for a single person, the migration of a group, as well as the existence, distribution and change of a region and trajectory for non-living things; as for a place, it also contains the people, events, things and other geographical information in previous time.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Academic Map Publishing Platform, established by Zhejiang University and Harvard University together, is not only an integrated database providing multi-functional query services, but also a display platform ready for users to present their research productions about geographic information and visualize analysis and select. The big data formed by the platform, will greatly contribute to future scientific research, overnment decision-making and social services.</p>"
-)
 
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.202.70.121', '::1']
 # PROXY_ALLOWED_HOSTS = ('localhost', '127.0.0.1', '10.202.70.121', '::1', 'amap.zju.edu.cn', )
@@ -677,3 +654,5 @@ CACHES = {
         }  
     }
 }
+
+DEFAULT_MAP_ABSTRACT = _("<h4>About Us</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A large amount of geographical information which is closely related to human activities exists in the brilliant human civilization, numerous documents since ancient times, as well as the vast land and ocean. For example, the geographical distribution of individuals, the traces and the social relations for a single person, the migration of a group, as well as the existence, distribution and change of a region and trajectory for non-living things; as for a place, it also contains the people, events, things and other geographical information in previous time.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Academic Map Publishing Platform, established by Zhejiang University and Harvard University together, is not only an integrated database providing multi-functional query services, but also a display platform ready for users to present their research productions about geographic information and visualize analysis and select. The big data formed by the platform, will greatly contribute to future scientific research, overnment decision-making and social services.</p>")
