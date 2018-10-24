@@ -76,7 +76,7 @@ STATIC_ROOT = os.getenv('STATIC_ROOT',
 # Additional directories which hold static files
 # In order to use the staticfiles in camp earlier than in geonode, use insert instead of append
 # STATICFILES_DIRS.append(
-STATICFILES_DIRS.insert(0, 
+STATICFILES_DIRS.insert(0,
     os.path.join(LOCAL_ROOT, "static"),
 )
 
@@ -383,7 +383,7 @@ LOGGING = {
     'handlers': {
         'null': {
             'level': 'INFO',
-            'class': 'django.utils.log.NullHandler',
+            'class': 'logging.NullHandler',
         },
         'console': {
             'level': 'INFO',
@@ -519,8 +519,8 @@ OGC_SERVER = {
 
 # If you want to enable Mosaics use the following configuration
 UPLOADER = {
-    'BACKEND': 'geonode.rest',
-    # 'BACKEND': 'geonode.importer',
+    #'BACKEND': 'geonode.rest',
+    'BACKEND': 'geonode.importer',
     'OPTIONS': {
         'TIME_ENABLED': True,
         'MOSAIC_ENABLED': False,
@@ -542,19 +542,20 @@ UPLOADER = {
 
 # for now we remove CsrfViewMiddleware, which creates failures on x-csrftoken
 # We need to fix this
-MIDDLEWARE_CLASSES += (
-    # 'django.middleware.csrf.CsrfViewMiddleware', # remove csrf because it will stop users from extranet
-    # Add cache middleware for the per-site cache
-    'django.middleware.cache.UpdateCacheMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
-)
+
+# MIDDLEWARE_CLASSES += (
+#     # 'django.middleware.csrf.CsrfViewMiddleware', # remove csrf because it will stop users from extranet
+#     # Add cache middleware for the per-site cache
+#     'django.middleware.cache.UpdateCacheMiddleware',
+#     'django.middleware.common.CommonMiddleware',
+#     'django.middleware.cache.FetchFromCacheMiddleware',
+# )
 
 # Other settings
 USE_CUSTOM_ORG_AUTHORIZATION = True
 # Modify affiliate defaults
 CUSTOM_ORG_AUTH_TEXT = _("Are you affiliated with Zhejiang University?")
-# Modify the link of terms and condition 
+# Modify the link of terms and condition
 CUSTOM_AGREE_TOS_TEXT = _("I agree to the <a href='/aboutus/#disclaimer'>Terms and Conditions</a>")
 # Uncomment following line if debugging GeoExplorer static files
 # GEONODE_CLIENT_LOCATION = 'http://localhost:9090/'
@@ -562,6 +563,7 @@ CUSTOM_AGREE_TOS_TEXT = _("I agree to the <a href='/aboutus/#disclaimer'>Terms a
 # Set TIME_ZONE to Shanghai and close USE_TZ to change the time showed in browser
 USE_TZ = False
 # Modify language settings
+LANGUAGE_CODE = 'zh-cn'
 MODELTRANSLATION_LANGUAGES = [LANGUAGE_CODE, ]
 MODELTRANSLATION_DEFAULT_LANGUAGE = LANGUAGE_CODE
 MODELTRANSLATION_FALLBACK_LANGUAGES = (LANGUAGE_CODE,)
@@ -642,16 +644,12 @@ WM_COPYRIGHT_TEXT = os.getenv('WM_COPYRIGHT_TEXT', _("Bigdata and AMAP Innovatio
 # Add required settings for cache
 # CACHE_MIDDLEWARE_ALIAS # The cache alias to use for storage.
 CACHE_MIDDLEWARE_SECONDS = 15 # The number of seconds each page should be cached.
-CACHE_MIDDLEWARE_KEY_PREFIX = 'Camp' # 如果缓存被多个使用相同Django安装的网站所共享，那么把这个值设成当前网站名，或其他能代表这个Django实例的唯一字符串，以避免key发生冲突。如果你不在意的话可以设成空字符串。 
+CACHE_MIDDLEWARE_KEY_PREFIX = 'Camp' # 如果缓存被多个使用相同Django安装的网站所共享，那么把这个值设成当前网站名，或其他能代表这个Django实例的唯一字符串，以避免key发生冲突。如果你不在意的话可以设成空字符串。
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',  # 指定缓存使用的引擎
         'LOCATION': '127.0.0.1:11211',
         'TIMEOUT':15,# default:300, None: never timeout
-        'OPTIONS':{
-            'MAX_ENTRIES': 300,# The max entries for cache record, default:300
-            'CULL_FREQUENCY': 3,# The percent to delete cache when the number of entrys reached the max limit, default: 1/3
-        }  
     }
 }
 
